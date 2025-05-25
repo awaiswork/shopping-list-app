@@ -1,5 +1,24 @@
 import React from "react";
-import { InputProps } from "../../types/ui";
+
+export interface BaseInputProps {
+    value: string;
+    onChange: (value: string) => void;
+    placeholder?: string;
+    disabled?: boolean;
+    className?: string;
+}
+
+export type InputProps =
+    | (BaseInputProps & {
+          type?: "text";
+          min?: never;
+          step?: never;
+      })
+    | (BaseInputProps & {
+          type: "number";
+          min?: number;
+          step?: number;
+      });
 
 type ExtendedInputProps = InputProps & {
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;

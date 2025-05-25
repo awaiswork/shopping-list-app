@@ -1,7 +1,10 @@
 import React, { useMemo, useState } from "react";
 import Button from "../ui/button";
 import Input from "../ui/input";
-import { AddNewProductProps } from "../../types/shopping-list";
+
+interface AddNewProductProps {
+    onAdd: (productName: string, productAmount: number) => void;
+}
 
 const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
     // States
