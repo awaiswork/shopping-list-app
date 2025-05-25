@@ -2,21 +2,28 @@ import React, { useState } from "react";
 import AddNewProduct from "./add-new-product";
 import { ShoppingItem } from "../../types/shopping-list";
 import ShoppingListHeader from "./shopping-list-header";
+import ShoppingListItem from "./shopping-list-item";
 
 const ShoppingList: React.FC = () => {
-    const [items, setItems] = useState<ShoppingItem[]>([
+    // States
+    const [productItems, setProductItems] = useState<ShoppingItem[]>([
         { id: "1", name: "Product 1", amount: 100 },
         { id: "2", name: "Product 2", amount: 200 },
         { id: "3", name: "Product 3", amount: 300 }
     ]);
 
+    // Functions
     const handleAddItem = (name: string, amount: number) => {
         const newItem: ShoppingItem = {
             id: Date.now().toString(),
             name,
             amount
         };
-        setItems([...items, newItem]);
+        setProductItems([...productItems, newItem]);
+    };
+
+    const handleRemoveItem = (id: string) => {
+        setProductItems(productItems.filter((item) => item.id !== id));
     };
 
     return (
@@ -24,6 +31,13 @@ const ShoppingList: React.FC = () => {
             <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg border border-gray-200">
                 {/* Header */}
                 <ShoppingListHeader />
+
+                {/* Shopping List Items */}
+                <div className="p-6 pt-2">
+                    {productItems.map((item) => (
+                        <ShoppingListItem key={item.id} item={item} onRemove={handleRemoveItem} />
+                    ))}
+                </div>
 
                 {/* Add New Product Section */}
                 <div className="p-6 pt-2">

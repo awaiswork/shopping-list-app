@@ -7,7 +7,9 @@ const Input: React.FC<InputProps> = ({
     placeholder = "",
     disabled = false,
     className = "",
-    type = "text"
+    type = "text",
+    min,
+    step
 }) => {
     const baseClasses = "w-full px-3 py-2 border border-gray-300 rounded-lg";
 
@@ -17,6 +19,9 @@ const Input: React.FC<InputProps> = ({
 
     const combinedClasses = `${baseClasses} ${disabledClasses} ${className}`;
 
+    // Only include min and step props for number inputs
+    const numberProps = type === "number" ? { min, step } : {};
+
     return (
         <input
             type={type}
@@ -25,6 +30,7 @@ const Input: React.FC<InputProps> = ({
             placeholder={placeholder}
             disabled={disabled}
             className={combinedClasses}
+            {...numberProps}
         />
     );
 };

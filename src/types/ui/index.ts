@@ -7,11 +7,22 @@ export interface ButtonProps {
     className?: string;
 }
 
-export interface InputProps {
+export interface BaseInputProps {
     value: string;
     onChange: (value: string) => void;
     placeholder?: string;
     disabled?: boolean;
     className?: string;
-    type?: "text" | "number";
 }
+
+export type InputProps =
+    | (BaseInputProps & {
+          type?: "text";
+          min?: never;
+          step?: never;
+      })
+    | (BaseInputProps & {
+          type: "number";
+          min?: number;
+          step?: number;
+      });

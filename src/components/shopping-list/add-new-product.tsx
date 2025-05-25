@@ -14,6 +14,11 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
         [productName, productAmount]
     );
 
+    const productAmountString = useMemo(
+        () => (productAmount !== undefined ? productAmount.toString() : ""),
+        [productAmount]
+    );
+
     // Functions
     const handleAdd = () => {
         if (onAdd && productName && productAmount && productAmount > 0) {
@@ -52,7 +57,7 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
                 </div>
                 <div className="w-28">
                     <Input
-                        value={productAmount !== undefined ? productAmount.toString() : ""}
+                        value={productAmountString}
                         onChange={handleAmountChange}
                         placeholder="Amount"
                         type="number"
