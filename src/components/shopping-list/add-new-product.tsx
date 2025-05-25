@@ -1,24 +1,39 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import Button from "../ui/button";
 import Input from "../ui/input";
-
-interface AddNewProductProps {
-    onAdd?: (name: string, amount: number) => void;
-}
+import { AddNewProductProps } from "../../types/shopping-list";
 
 const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
-    const [name, setName] = useState("");
-    const [amount, setAmount] = useState("");
+    // States
+    const [productName, setProductName] = useState("");
+    const [productAmount, setProductAmount] = useState<number | undefined>(undefined);
 
+    // Memoized values
+    const isAddDisabled = useMemo(
+        () => !productName || !productAmount,
+        [productName, productAmount]
+    );
+
+    // Functions
     const handleAdd = () => {
-        if (onAdd && name.trim() && amount.trim()) {
-            const numericAmount = parseFloat(amount);
-            if (!isNaN(numericAmount) && numericAmount > 0) {
-                onAdd(name.trim(), numericAmount);
-                setName("");
-                setAmount("");
-            }
+        if (onAdd && productName && productAmount && productAmount > 0) {
+            onAdd(productName, productAmount);
+            resetForm();
         }
+    };
+
+    const resetForm = () => {
+        setProductName("");
+        setProductAmount(undefined);
+    };
+
+    const handleNameChange = (value: string) => {
+        setProductName(value.trim());
+    };
+
+    const handleAmountChange = (value: string) => {
+        const numericValue = value === "" ? undefined : Number(value) || undefined;
+        setProductAmount(numericValue);
     };
 
     return (
@@ -29,22 +44,30 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
             <div className="flex items-center gap-4">
                 <div className="flex-1">
                     <Input
-                        value={name}
-                        onChange={setName}
+                        value={productName}
+                        onChange={handleNameChange}
                         placeholder="Name"
                         className="bg-white"
                     />
                 </div>
                 <div className="w-28">
                     <Input
-                        value={amount}
-                        onChange={setAmount}
+                        value={productAmount !== undefined ? productAmount.toString() : ""}
+                        onChange={handleAmountChange}
                         placeholder="Amount"
                         type="number"
+                        min={1}
+                        step={1}
                         className="bg-white text-center"
                     />
                 </div>
-                <Button variant="success" size="sm" onClick={handleAdd} className="px-6 py-2">
+                <Button
+                    variant="success"
+                    size="sm"
+                    onClick={handleAdd}
+                    className="px-6 py-2"
+                    disabled={isAddDisabled}
+                >
                     Add
                 </Button>
             </div>
