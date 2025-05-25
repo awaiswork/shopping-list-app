@@ -1,7 +1,7 @@
 import "./App.css";
 
 function App() {
-    return <div className="App">Shopping List</div>;
+    return <div className="flex justify-center items-center">Shopping List</div>;
 }
 
 export default App;
