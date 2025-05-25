@@ -33,20 +33,22 @@ const ShoppingList: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 p-8">
-            <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg border border-gray-200">
+        <div className="h-screen bg-gray-100 p-8 flex items-center justify-center">
+            <div className="max-w-4xl w-full h-full max-h-[calc(100vh-4rem)] bg-white rounded-lg shadow-lg border border-gray-200 flex flex-col">
                 {/* Header */}
                 <ShoppingListHeader />
 
                 {/* Shopping List Items */}
-                <ShoppingListItems
-                    items={productItems}
-                    onRemove={handleRemoveItem}
-                    onEdit={handleEditItem}
-                />
+                <div className="flex-1 overflow-hidden">
+                    <ShoppingListItems
+                        items={productItems}
+                        onRemove={handleRemoveItem}
+                        onEdit={handleEditItem}
+                    />
+                </div>
 
                 {/* Add New Product Section */}
-                <div className="p-6 pt-2">
+                <div className="p-6 pt-2 border-t border-gray-200">
                     <AddNewProduct onAdd={handleAddItem} />
                 </div>
             </div>
