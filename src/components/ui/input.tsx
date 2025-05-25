@@ -1,7 +1,12 @@
 import React from "react";
 import { InputProps } from "../../types/ui";
 
-const Input: React.FC<InputProps> = ({
+type ExtendedInputProps = InputProps & {
+    onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+    autoFocus?: boolean;
+};
+
+const Input: React.FC<ExtendedInputProps> = ({
     value,
     onChange,
     placeholder = "",
@@ -9,9 +14,12 @@ const Input: React.FC<InputProps> = ({
     className = "",
     type = "text",
     min,
-    step
+    step,
+    onKeyDown,
+    autoFocus
 }) => {
-    const baseClasses = "w-full px-3 py-2 border border-gray-300 rounded-lg";
+    const baseClasses =
+        "w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent";
 
     const disabledClasses = disabled
         ? "bg-gray-100 cursor-not-allowed opacity-50"
@@ -27,9 +35,11 @@ const Input: React.FC<InputProps> = ({
             type={type}
             value={value}
             onChange={(e) => onChange(e.target.value)}
+            onKeyDown={onKeyDown}
             placeholder={placeholder}
             disabled={disabled}
             className={combinedClasses}
+            autoFocus={autoFocus}
             {...numberProps}
         />
     );

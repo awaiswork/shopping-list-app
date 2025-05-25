@@ -26,6 +26,12 @@ const ShoppingList: React.FC = () => {
         setProductItems(productItems.filter((item) => item.id !== id));
     };
 
+    const handleEditItem = (id: string, name: string, amount: number) => {
+        setProductItems(
+            productItems.map((item) => (item.id === id ? { ...item, name, amount } : item))
+        );
+    };
+
     return (
         <div className="min-h-screen bg-gray-100 p-8">
             <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg border border-gray-200">
@@ -33,7 +39,11 @@ const ShoppingList: React.FC = () => {
                 <ShoppingListHeader />
 
                 {/* Shopping List Items */}
-                <ShoppingListItems items={productItems} onRemove={handleRemoveItem} />
+                <ShoppingListItems
+                    items={productItems}
+                    onRemove={handleRemoveItem}
+                    onEdit={handleEditItem}
+                />
 
                 {/* Add New Product Section */}
                 <div className="p-6 pt-2">
