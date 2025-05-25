@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AddNewProduct from "./add-new-product";
 import { ShoppingItem } from "../../types/shopping-list";
 import ShoppingListHeader from "./shopping-list-header";
-import ShoppingListItem from "./shopping-list-item";
+import ShoppingListItems from "./shopping-list-items";
 
 const ShoppingList: React.FC = () => {
     // States
@@ -33,11 +33,7 @@ const ShoppingList: React.FC = () => {
                 <ShoppingListHeader />
 
                 {/* Shopping List Items */}
-                <div className="p-6 pt-2">
-                    {productItems.map((item) => (
-                        <ShoppingListItem key={item.id} item={item} onRemove={handleRemoveItem} />
-                    ))}
-                </div>
+                <ShoppingListItems items={productItems} onRemove={handleRemoveItem} />
 
                 {/* Add New Product Section */}
                 <div className="p-6 pt-2">
