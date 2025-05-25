@@ -7,9 +7,15 @@ interface ShoppingListItemsProps {
     items: ShoppingItem[];
     onRemove: (id: string) => void;
     onEdit: (id: string, name: string, amount: number) => void;
+    scrollContainerRef?: React.RefObject<HTMLDivElement | null>;
 }
 
-const ShoppingListItems: React.FC<ShoppingListItemsProps> = ({ items, onRemove, onEdit }) => {
+const ShoppingListItems: React.FC<ShoppingListItemsProps> = ({
+    items,
+    onRemove,
+    onEdit,
+    scrollContainerRef
+}) => {
     return (
         <div className="h-full flex flex-col">
             {items.length > 0 ? (
@@ -34,7 +40,7 @@ const ShoppingListItems: React.FC<ShoppingListItemsProps> = ({ items, onRemove, 
                         </div>
                     </div>
 
-                    <div className="flex-1 overflow-y-auto px-6">
+                    <div className="flex-1 overflow-y-auto px-6" ref={scrollContainerRef}>
                         <div className="space-y-0">
                             {items.map((item) => (
                                 <ShoppingListItem

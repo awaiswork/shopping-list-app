@@ -10,7 +10,7 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
 
     // Memoized values
     const isAddDisabled = useMemo(
-        () => !productName || !productAmount,
+        () => !productName.trim() || !productAmount,
         [productName, productAmount]
     );
 
@@ -21,8 +21,9 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
 
     // Functions
     const handleAdd = () => {
-        if (onAdd && productName && productAmount && productAmount > 0) {
-            onAdd(productName, productAmount);
+        const trimmedName = productName.trim();
+        if (onAdd && trimmedName && productAmount && productAmount > 0) {
+            onAdd(trimmedName, productAmount);
             resetForm();
         }
     };
@@ -30,10 +31,6 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
     const resetForm = () => {
         setProductName("");
         setProductAmount(undefined);
-    };
-
-    const handleNameChange = (value: string) => {
-        setProductName(value.trim());
     };
 
     const handleAmountChange = (value: string) => {
@@ -50,7 +47,7 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
                 <div className="flex-1">
                     <Input
                         value={productName}
-                        onChange={handleNameChange}
+                        onChange={setProductName}
                         placeholder="Name"
                         className="bg-white"
                     />
