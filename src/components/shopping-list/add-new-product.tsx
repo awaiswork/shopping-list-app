@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 import Button from "../ui/button";
 import Input from "../ui/input";
+import { Plus } from "lucide-react";
 
 interface AddNewProductProps {
     onAdd: (productName: string, productAmount: number) => void;
@@ -44,7 +45,7 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
     return (
         <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 bg-gray-50">
             <h3 className="text-lg font-semibold text-gray-800 mb-4 border-b border-gray-300 pb-2">
-                Add New Products
+                Add New Product
             </h3>
             <div className="flex items-center gap-4">
                 <div className="flex-1">
@@ -70,9 +71,10 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
                     variant="success"
                     size="sm"
                     onClick={handleAdd}
-                    className="px-6 py-2"
+                    className="py-2"
                     disabled={isAddDisabled}
                 >
+                    <Plus className="w-4 h-4" />
                     Add
                 </Button>
             </div>

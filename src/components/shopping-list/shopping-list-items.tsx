@@ -21,21 +21,15 @@ const ShoppingListItems: React.FC<ShoppingListItemsProps> = ({
             {items.length > 0 ? (
                 <>
                     <div className="px-6 py-2">
-                        <div className="grid grid-cols-[1fr_auto_auto_auto] gap-4 py-2 border-b-2 border-gray-300 mb-2">
+                        <div className="grid grid-cols-[1fr_auto_auto_auto] gap-4 py-2 pb-4 border-b border-gray-300 mb-2">
                             <div>
-                                <span className="text-sm font-semibold text-gray-600 uppercase tracking-wide">
-                                    Product
-                                </span>
+                                <span className="text-sm font-semibold text-gray-600">PRODUCT</span>
                             </div>
                             <div className="w-24 text-center">
-                                <span className="text-sm font-semibold text-gray-600 uppercase tracking-wide">
-                                    Amount
-                                </span>
+                                <span className="text-sm font-semibold text-gray-600">AMOUNT</span>
                             </div>
                             <div className="text-center">
-                                <span className="text-sm font-semibold text-gray-600 uppercase tracking-wide">
-                                    Actions
-                                </span>
+                                <span className="text-sm font-semibold text-gray-600">ACTIONS</span>
                             </div>
                         </div>
                     </div>

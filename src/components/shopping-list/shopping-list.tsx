@@ -53,7 +53,7 @@ const ShoppingList: React.FC = () => {
                 </div>
 
                 {/* Add New Product Section */}
-                <div className="p-6 pt-2 border-t border-gray-200">
+                <div className="p-6 border-t border-gray-200">
                     <AddNewProduct onAdd={handleAddItem} />
                 </div>
             </div>
