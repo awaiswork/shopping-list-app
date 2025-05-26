@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import AddNewProduct from "./add-new-product";
 import ShoppingListHeader from "./shopping-list-header";
 import ShoppingListItems from "./shopping-list-items";
@@ -9,23 +9,28 @@ const ShoppingList: React.FC = () => {
     // Refs
     const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+    // State
+    const [isAddNewProductAdded, setIsAddNewProductAdded] = useState(false);
+
     // Redux
     const productItems = useAppSelector((state) => state.shoppingList.items);
     const dispatch = useAppDispatch();
 
     // Auto-scroll to bottom when new item is added
     useEffect(() => {
-        if (scrollContainerRef.current) {
+        if (scrollContainerRef.current && isAddNewProductAdded) {
             scrollContainerRef.current.scrollTo({
                 top: 0,
                 behavior: "smooth"
             });
+            setIsAddNewProductAdded(false);
         }
-    }, [productItems.length]);
+    }, [productItems.length, isAddNewProductAdded]);
 
     // Functions
     const handleAddItem = (name: string, amount: number) => {
         dispatch(addItem({ name, amount }));
+        setIsAddNewProductAdded(true);
     };
 
     const handleRemoveItem = (id: string) => {

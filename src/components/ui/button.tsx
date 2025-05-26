@@ -19,7 +19,7 @@ const Button: React.FC<ButtonProps> = ({
     isIconOnly = false
 }) => {
     const baseClasses =
-        "flex items-center justify-center gap-2 font-medium transition-colors duration-200";
+        "flex items-center justify-center gap-2 font-medium transition-all duration-200 shadow-sm hover:shadow-md";
 
     const variantClasses = {
         primary: "bg-blue-600 hover:bg-blue-700 text-white",
@@ -43,7 +43,9 @@ const Button: React.FC<ButtonProps> = ({
 
     const shapeClasses = isIconOnly ? "rounded-full" : "rounded-lg";
 
-    const disabledClasses = disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer";
+    const disabledClasses = disabled
+        ? "opacity-50 cursor-not-allowed hover:shadow-none"
+        : "cursor-pointer";
 
     const combinedClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${shapeClasses} ${disabledClasses} ${className}`;
 

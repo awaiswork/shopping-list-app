@@ -46,7 +46,7 @@ const ShoppingListItem: React.FC<ShoppingListItemProps> = ({ item, onRemove, onE
     };
 
     return (
-        <div className="grid grid-cols-[1fr_auto_auto] gap-4 items-center py-3 border-b border-gray-200 last:border-b-0">
+        <div className="grid grid-cols-[1fr_auto_auto] gap-4 items-center py-4 px-4 border border-slate-200/60 rounded-xl bg-white/80 hover:shadow-md mb-2 first:mb-0 last:mb-0 cursor-pointer">
             <div>
                 {isEditing ? (
                     <Input
@@ -56,8 +56,10 @@ const ShoppingListItem: React.FC<ShoppingListItemProps> = ({ item, onRemove, onE
                         autoFocus
                     />
                 ) : (
-                    <div className="border border-dashed border-gray-300 rounded px-3 py-2 bg-gray-50">
-                        <span className="text-gray-700">{item.name || "name"}</span>
+                    <div className="border border-slate-200 rounded-lg px-4 py-2 bg-slate-30">
+                        <span className="text-slate-700 font-medium">
+                            {item.name || "Product name"}
+                        </span>
                     </div>
                 )}
             </div>
@@ -72,8 +74,8 @@ const ShoppingListItem: React.FC<ShoppingListItemProps> = ({ item, onRemove, onE
                         min={0}
                     />
                 ) : (
-                    <div className="border border-dashed border-gray-300 rounded px-3 py-2 bg-gray-50 text-center">
-                        <span className="text-gray-700">{item.amount || 0}</span>
+                    <div className="border border-slate-200 rounded-lg px-4 py-2 text-center bg-slate-30">
+                        <span className="text-slate-700 font-semibold">{item.amount || 0}</span>
                     </div>
                 )}
             </div>
