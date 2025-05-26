@@ -2,7 +2,7 @@ import React from "react";
 
 export interface BaseInputProps {
     value: string;
-    onChange: (value: string) => void;
+    onChange?: (value: string) => void;
     placeholder?: string;
     disabled?: boolean;
     className?: string;
@@ -53,7 +53,7 @@ const Input: React.FC<ExtendedInputProps> = ({
         <input
             type={type}
             value={value}
-            onChange={(e) => onChange(e.target.value)}
+            onChange={(e) => onChange?.(e.target.value)}
             onKeyDown={onKeyDown}
             placeholder={placeholder}
             disabled={disabled}
