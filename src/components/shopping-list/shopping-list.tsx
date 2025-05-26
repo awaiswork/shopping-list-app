@@ -17,7 +17,7 @@ const ShoppingList: React.FC = () => {
     useEffect(() => {
         if (scrollContainerRef.current) {
             scrollContainerRef.current.scrollTo({
-                top: scrollContainerRef.current.scrollHeight,
+                top: 0,
                 behavior: "smooth"
             });
         }

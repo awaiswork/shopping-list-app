@@ -32,7 +32,7 @@ const shoppingListSlice = createSlice({
                 name: action.payload.name,
                 amount: action.payload.amount
             };
-            state.items.push(newItem);
+            state.items = [newItem, ...state.items];
         },
         removeItem: (state, action: PayloadAction<string>) => {
             state.items = state.items.filter((item) => item.id !== action.payload);
