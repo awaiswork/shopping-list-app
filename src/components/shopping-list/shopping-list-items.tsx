@@ -6,7 +6,7 @@ import ShoppingListItem from "./shopping-list-item";
 interface ShoppingListItemsProps {
     items: ShoppingItem[];
     onRemove: (id: string) => void;
-    onEdit: (id: string, name: string, amount: number) => void;
+    onEdit: (productItemObj: ShoppingItem) => void;
     scrollContainerRef?: React.RefObject<HTMLDivElement | null>;
 }
 
@@ -17,7 +17,7 @@ const ShoppingListItems: React.FC<ShoppingListItemsProps> = ({
     scrollContainerRef
 }) => {
     return (
-        <div className="h-full flex flex-col bg-gradient-to-r from-slate-50/80 to-blue-50/40">
+        <div className="h-full flex flex-col bg-gradient-to-r from-slate-50/80 to-blue-50/40 overflow-hidden">
             {items.length > 0 ? (
                 <>
                     <div className="px-6 py-2 pb-0">

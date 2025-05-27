@@ -43,41 +43,45 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
     };
 
     return (
-        <div className="border-2 border-dashed border-pink-200 hover:border-pink-300 transition-colors duration-200 rounded-xl p-4">
-            <h3 className="text-lg font-semibold text-slate-700 mb-4 border-b border-pink-200/60 pb-2 flex items-center gap-2">
-                <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
-                <span className="font-semibold text-pink-600 tracking-wide">Add New Product</span>
-            </h3>
-            <div className="flex items-center gap-4">
-                <div className="flex-1">
-                    <Input
-                        value={productName}
-                        onChange={setProductName}
-                        placeholder="Product name"
-                        className="bg-white/70"
-                    />
+        <div className="p-6 border-t border-gray-200">
+            <div className="border-2 border-dashed border-pink-200 hover:border-pink-300 transition-colors duration-200 rounded-xl p-4">
+                <h3 className="text-lg font-semibold text-slate-700 mb-4 border-b border-pink-200/60 pb-2 flex items-center gap-2">
+                    <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
+                    <span className="font-semibold text-pink-600 tracking-wide">
+                        Add New Product
+                    </span>
+                </h3>
+                <div className="flex items-center gap-4">
+                    <div className="flex-1">
+                        <Input
+                            value={productName}
+                            onChange={setProductName}
+                            placeholder="Product name"
+                            className="bg-white/70"
+                        />
+                    </div>
+                    <div className="w-28">
+                        <Input
+                            value={productAmountString}
+                            onChange={handleAmountChange}
+                            placeholder="Amount"
+                            type="number"
+                            min={1}
+                            step={1}
+                            className="bg-white/70 text-center"
+                        />
+                    </div>
+                    <Button
+                        variant="success"
+                        size="md"
+                        onClick={handleAdd}
+                        className="py-2"
+                        disabled={isAddDisabled}
+                    >
+                        <Plus className="w-4 h-4" />
+                        Add
+                    </Button>
                 </div>
-                <div className="w-28">
-                    <Input
-                        value={productAmountString}
-                        onChange={handleAmountChange}
-                        placeholder="Amount"
-                        type="number"
-                        min={1}
-                        step={1}
-                        className="bg-white/70 text-center"
-                    />
-                </div>
-                <Button
-                    variant="success"
-                    size="md"
-                    onClick={handleAdd}
-                    className="py-2"
-                    disabled={isAddDisabled}
-                >
-                    <Plus className="w-4 h-4" />
-                    Add
-                </Button>
             </div>
         </div>
     );
