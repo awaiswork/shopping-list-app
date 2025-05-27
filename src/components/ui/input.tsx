@@ -8,43 +8,47 @@ export interface BaseInputProps {
     className?: string;
 }
 
-export type InputProps =
-    | (BaseInputProps & {
-          type?: "text";
-          min?: never;
-          step?: never;
-          max?: never;
-          maxLength?: number;
-      })
-    | (BaseInputProps & {
-          type: "number";
-          min?: number;
-          step?: number;
-          max?: number;
-          maxLength?: never;
-      });
+interface TextInputProps extends BaseInputProps {
+    type?: "text";
+    maxLength?: number;
+}
+
+interface NumberInputProps extends BaseInputProps {
+    type: "number";
+    min?: number;
+    step?: number;
+    max?: number;
+}
+
+export type InputProps = TextInputProps | NumberInputProps;
 
 type ExtendedInputProps = InputProps & {
     onKeyDown?: (e: React.KeyboardEvent<HTMLInputElement>) => void;
     autoFocus?: boolean;
 };
 
-const Input: React.FC<ExtendedInputProps> = ({
-    value,
-    onChange,
-    placeholder = "",
-    disabled = false,
-    className = "",
-    type = "text",
-    min = 1,
-    step = 1,
-    max = 999,
-    maxLength,
-    onKeyDown,
-    autoFocus
-}) => {
+const Input: React.FC<ExtendedInputProps> = (props) => {
+    const {
+        value,
+        onChange,
+        placeholder = "",
+        disabled = false,
+        className = "",
+        type = "text",
+        onKeyDown,
+        autoFocus
+    } = props;
+
+    const isNumberInput = type === "number";
+    const isTextInput = type === "text";
+
+    const min = (isNumberInput && (props as NumberInputProps).min) || 1;
+    const step = (isNumberInput && (props as NumberInputProps).step) || 1;
+    const max = (isNumberInput && (props as NumberInputProps).max) || 999;
+    const maxLength = isTextInput ? (props as TextInputProps).maxLength : undefined;
+
     const handleChange = (inputValue: string) => {
-        if (type === "number") {
+        if (isNumberInput) {
             if (inputValue === "") {
                 onChange("1");
                 return;
@@ -52,7 +56,7 @@ const Input: React.FC<ExtendedInputProps> = ({
 
             // Restrict negative values
             const numValue = parseFloat(inputValue);
-            if (numValue > 0 && numValue <= (max || 999)) {
+            if (numValue > 0 && numValue <= max) {
                 onChange(inputValue);
             }
         } else {
@@ -61,7 +65,7 @@ const Input: React.FC<ExtendedInputProps> = ({
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (type === "number") {
+        if (isNumberInput) {
             // Restrict typing minus sign
             if (e.key === "-" || e.key === "Minus") {
                 e.preventDefault();
@@ -79,12 +83,9 @@ const Input: React.FC<ExtendedInputProps> = ({
 
     const combinedClasses = `${baseClasses} ${disabledClasses} ${className}`;
 
-    // Only include min, max and step props for number inputs
-    const numberProps = type === "number" ? { min, max, step } : {};
-
-    // Add maxLength for text inputs
-    const textMaxLength = type === "text" ? maxLength || 50 : undefined;
-    const textProps = type === "text" ? { maxLength: textMaxLength } : {};
+    const numberProps = isNumberInput ? { min, max, step } : {};
+    const textMaxLength = isTextInput ? maxLength || 50 : undefined;
+    const textProps = isTextInput ? { maxLength: textMaxLength } : {};
 
     if (type === "text" && textMaxLength) {
         return (
