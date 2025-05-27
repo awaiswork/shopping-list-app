@@ -57,9 +57,7 @@ const ShoppingListItem: React.FC<ShoppingListItemProps> = ({ item, onRemove, onE
                     />
                 ) : (
                     <div className="border border-slate-200 rounded-lg px-4 py-2 bg-slate-30">
-                        <span className="text-slate-700 font-medium">
-                            {item.name || "Product name"}
-                        </span>
+                        <span className="text-slate-700">{item.name || "Product name"}</span>
                     </div>
                 )}
             </div>
@@ -75,7 +73,7 @@ const ShoppingListItem: React.FC<ShoppingListItemProps> = ({ item, onRemove, onE
                     />
                 ) : (
                     <div className="border border-slate-200 rounded-lg px-4 py-2 text-center bg-slate-30">
-                        <span className="text-slate-700 font-semibold">{item.amount || 0}</span>
+                        <span className="text-slate-700">{item.amount || 0}</span>
                     </div>
                 )}
             </div>

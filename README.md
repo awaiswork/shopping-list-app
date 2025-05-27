@@ -2,6 +2,10 @@
 
 A modern shopping list application built with React and TypeScript. This app provides an intuitive interface for managing your shopping items with features like adding, editing, removing, and organizing your shopping list efficiently.
 
+## Live App
+
+🚀 **[View Live App](https://awais-shopping-list.netlify.app/)**
+
 ## Project Features
 
 -   **Add Items**: Easily add new products to your shopping list with name and quantity
