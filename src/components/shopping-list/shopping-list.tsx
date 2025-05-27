@@ -16,7 +16,7 @@ const ShoppingList: React.FC = () => {
     const productItems = useAppSelector((state) => state.shoppingList.items);
     const dispatch = useAppDispatch();
 
-    // Auto-scroll to bottom when new item is added
+    // Auto-scroll to top when new item is added
     useEffect(() => {
         if (scrollContainerRef.current && isAddNewProductAdded) {
             scrollContainerRef.current.scrollTo({

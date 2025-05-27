@@ -32,7 +32,7 @@ const shoppingListSlice = createSlice({
                 name: action.payload.name,
                 amount: action.payload.amount
             };
-            state.items = [newItem, ...state.items];
+            state.items = [newItem, ...state.items]; // Add new item to the beginning of the array
         },
         removeItem: (state, action: PayloadAction<string>) => {
             state.items = state.items.filter((item) => item.id !== action.payload);
