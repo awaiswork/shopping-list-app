@@ -42,9 +42,14 @@ const Input: React.FC<ExtendedInputProps> = (props) => {
     const isNumberInput = type === "number";
     const isTextInput = type === "text";
 
-    const min = (isNumberInput && (props as NumberInputProps).min) || 1;
-    const step = (isNumberInput && (props as NumberInputProps).step) || 1;
-    const max = (isNumberInput && (props as NumberInputProps).max) || 999;
+    const numberInputProps = isNumberInput
+        ? {
+              min: (props as NumberInputProps).min ?? 1,
+              step: (props as NumberInputProps).step ?? 1,
+              max: (props as NumberInputProps).max ?? 999
+          }
+        : null;
+
     const maxLength = isTextInput ? (props as TextInputProps).maxLength : undefined;
 
     const handleChange = (inputValue: string) => {
@@ -56,7 +61,7 @@ const Input: React.FC<ExtendedInputProps> = (props) => {
 
             // Restrict negative values
             const numValue = parseFloat(inputValue);
-            if (numValue > 0 && numValue <= max) {
+            if (numValue > 0 && numValue <= (numberInputProps?.max ?? 999)) {
                 onChange(inputValue);
             }
         } else {
@@ -83,7 +88,7 @@ const Input: React.FC<ExtendedInputProps> = (props) => {
 
     const combinedClasses = `${baseClasses} ${disabledClasses} ${className}`;
 
-    const numberProps = isNumberInput ? { min, max, step } : {};
+    const numberProps = numberInputProps || {};
     const textMaxLength = isTextInput ? maxLength || 50 : undefined;
     const textProps = isTextInput ? { maxLength: textMaxLength } : {};
 
