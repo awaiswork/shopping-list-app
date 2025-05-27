@@ -21,7 +21,7 @@ const ShoppingListItems: React.FC<ShoppingListItemsProps> = ({
             {items.length > 0 ? (
                 <>
                     <div className="px-6 py-2 pb-0">
-                        <div className="grid grid-cols-[1fr_auto_auto] gap-4 px-4 py-2 pb-3 border-b border-slate-300/60">
+                        <div className="grid grid-cols-[1fr_auto_auto] gap-6 px-4 py-2 pb-3 border-b border-slate-300/60">
                             <div>
                                 <span className="text-sm font-bold text-slate-600 tracking-wide">
                                     PRODUCT
