@@ -2,7 +2,7 @@ import React from "react";
 
 export interface BaseInputProps {
     value: string;
-    onChange?: (value: string) => void;
+    onChange: (value: string) => void;
     placeholder?: string;
     disabled?: boolean;
     className?: string;
@@ -13,12 +13,14 @@ export type InputProps =
           type?: "text";
           min?: never;
           step?: never;
+          max?: never;
           maxLength?: number;
       })
     | (BaseInputProps & {
           type: "number";
           min?: number;
           step?: number;
+          max?: number;
           maxLength?: never;
       });
 
@@ -34,12 +36,40 @@ const Input: React.FC<ExtendedInputProps> = ({
     disabled = false,
     className = "",
     type = "text",
-    min,
-    step,
+    min = 1,
+    step = 1,
+    max = 999,
     maxLength,
     onKeyDown,
     autoFocus
 }) => {
+    const handleChange = (inputValue: string) => {
+        if (type === "number") {
+            if (inputValue === "") {
+                onChange("1");
+                return;
+            }
+
+            // Restrict negative values
+            const numValue = parseFloat(inputValue);
+            if (numValue > 0 && numValue <= (max || 999)) {
+                onChange(inputValue);
+            }
+        } else {
+            onChange(inputValue);
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (type === "number") {
+            // Restrict typing minus sign
+            if (e.key === "-" || e.key === "Minus") {
+                e.preventDefault();
+                return;
+            }
+        }
+        onKeyDown?.(e);
+    };
     const baseClasses =
         "w-full px-4 py-2 border border-slate-300 rounded-lg transition-all duration-200 focus:outline-none focus:border-pink-300 placeholder-slate-400";
 
@@ -49,8 +79,8 @@ const Input: React.FC<ExtendedInputProps> = ({
 
     const combinedClasses = `${baseClasses} ${disabledClasses} ${className}`;
 
-    // Only include min and step props for number inputs
-    const numberProps = type === "number" ? { min, step } : {};
+    // Only include min, max and step props for number inputs
+    const numberProps = type === "number" ? { min, max, step } : {};
 
     // Add maxLength for text inputs
     const textMaxLength = type === "text" ? maxLength || 50 : undefined;
@@ -62,8 +92,8 @@ const Input: React.FC<ExtendedInputProps> = ({
                 <input
                     type={type}
                     value={value}
-                    onChange={(e) => onChange?.(e.target.value)}
-                    onKeyDown={onKeyDown}
+                    onChange={(e) => handleChange(e.target.value)}
+                    onKeyDown={handleKeyDown}
                     placeholder={placeholder}
                     disabled={disabled}
                     className={`${combinedClasses} pr-16`}
@@ -81,8 +111,8 @@ const Input: React.FC<ExtendedInputProps> = ({
         <input
             type={type}
             value={value}
-            onChange={(e) => onChange?.(e.target.value)}
-            onKeyDown={onKeyDown}
+            onChange={(e) => handleChange(e.target.value)}
+            onKeyDown={handleKeyDown}
             placeholder={placeholder}
             disabled={disabled}
             className={combinedClasses}
