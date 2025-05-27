@@ -65,7 +65,7 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
                         <Input
                             value={productAmountString}
                             onChange={handleAmountChange}
-                            placeholder="Amount"
+                            placeholder="Qty"
                             type="number"
                             min={1}
                             step={1}

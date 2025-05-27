@@ -29,7 +29,7 @@ const ShoppingListItems: React.FC<ShoppingListItemsProps> = ({
                             </div>
                             <div className="w-24 text-center">
                                 <span className="text-sm font-bold text-slate-600 tracking-wide">
-                                    AMOUNT
+                                    QUANTITY
                                 </span>
                             </div>
                             <div className="text-center">

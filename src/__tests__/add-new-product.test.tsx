@@ -16,7 +16,7 @@ describe("AddNewProduct Component", () => {
         render(<AddNewProduct onAdd={mockOnAdd} />);
 
         const productNameInput = screen.getByPlaceholderText("Product name");
-        const amountInput = screen.getByPlaceholderText("Amount");
+        const amountInput = screen.getByPlaceholderText("Qty");
         const addButton = screen.getByRole("button", { name: "Add" });
 
         userEvent.type(productNameInput, "Milk");
@@ -28,7 +28,7 @@ describe("AddNewProduct Component", () => {
     test("does not call onAdd with missing product name", async () => {
         render(<AddNewProduct onAdd={mockOnAdd} />);
 
-        const amountInput = screen.getByPlaceholderText("Amount");
+        const amountInput = screen.getByPlaceholderText("Qty");
         const addButton = screen.getByRole("button", { name: "Add" });
 
         userEvent.type(amountInput, "5");
