@@ -4,6 +4,7 @@ import ShoppingListHeader from "./shopping-list-header";
 import ShoppingListItems from "./shopping-list-items";
 import { useAppSelector, useAppDispatch } from "../../store/hooks";
 import { addItem, removeItem, editItem } from "../../store/slices/shopping-list-slice";
+import { ShoppingItem } from "../../types/shopping-list";
 
 const ShoppingList: React.FC = () => {
     // Refs
@@ -13,10 +14,10 @@ const ShoppingList: React.FC = () => {
     const [isAddNewProductAdded, setIsAddNewProductAdded] = useState(false);
 
     // Redux
-    const productItems = useAppSelector((state) => state.shoppingList.items);
     const dispatch = useAppDispatch();
+    const productItems = useAppSelector((state) => state.shoppingList.items);
 
-    // Auto-scroll to top when new item is added
+    // UseEffect to scroll to top when new item is added
     useEffect(() => {
         if (scrollContainerRef.current && isAddNewProductAdded) {
             scrollContainerRef.current.scrollTo({
@@ -37,30 +38,23 @@ const ShoppingList: React.FC = () => {
         dispatch(removeItem(id));
     };
 
-    const handleEditItem = (id: string, name: string, amount: number) => {
-        dispatch(editItem({ id, name, amount }));
+    const handleEditItem = (productItemObj: ShoppingItem) => {
+        dispatch(editItem(productItemObj));
     };
 
     return (
         <div className="h-screen bg-gray-100 p-8 flex items-center justify-center">
             <div className="max-w-4xl w-full h-full max-h-[calc(100vh-4rem)] bg-white rounded-lg shadow-lg border border-gray-200 flex flex-col">
-                {/* Header */}
                 <ShoppingListHeader />
 
-                {/* Shopping List Items */}
-                <div className="flex-1 overflow-hidden">
-                    <ShoppingListItems
-                        items={productItems}
-                        onRemove={handleRemoveItem}
-                        onEdit={handleEditItem}
-                        scrollContainerRef={scrollContainerRef}
-                    />
-                </div>
+                <ShoppingListItems
+                    items={productItems}
+                    onRemove={handleRemoveItem}
+                    onEdit={handleEditItem}
+                    scrollContainerRef={scrollContainerRef}
+                />
 
-                {/* Add New Product Section */}
-                <div className="p-6 border-t border-gray-200">
-                    <AddNewProduct onAdd={handleAddItem} />
-                </div>
+                <AddNewProduct onAdd={handleAddItem} />
             </div>
         </div>
     );

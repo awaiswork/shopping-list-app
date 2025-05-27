@@ -6,18 +6,25 @@ import Input from "../ui/input";
 
 interface ShoppingListItemProps {
     item: ShoppingItem;
-    onRemove?: (id: string) => void;
-    onEdit?: (id: string, name: string, amount: number) => void;
+    onRemove: (id: string) => void;
+    onEdit: (productItemObj: ShoppingItem) => void;
 }
 
 const ShoppingListItem: React.FC<ShoppingListItemProps> = ({ item, onRemove, onEdit }) => {
+    // States
     const [isEditing, setIsEditing] = useState(false);
     const [editName, setEditName] = useState(item.name);
     const [editAmount, setEditAmount] = useState(item.amount);
 
+    // Functions
     const handleSave = () => {
         if (onEdit && editName.trim()) {
-            onEdit(item.id, editName.trim(), editAmount);
+            const productItemObj = {
+                id: item.id,
+                name: editName.trim(),
+                amount: editAmount
+            };
+            onEdit(productItemObj);
             setIsEditing(false);
         }
     };
