@@ -46,7 +46,7 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
         <div className="border-2 border-dashed border-pink-200 hover:border-pink-300 transition-colors duration-200 rounded-xl p-4">
             <h3 className="text-lg font-semibold text-slate-700 mb-4 border-b border-pink-200/60 pb-2 flex items-center gap-2">
                 <div className="w-2 h-2 bg-pink-500 rounded-full"></div>
-                Add New Product
+                <span className="font-semibold text-pink-600 tracking-wide">Add New Product</span>
             </h3>
             <div className="flex items-center gap-4">
                 <div className="flex-1">
