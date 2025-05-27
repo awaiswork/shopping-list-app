@@ -13,11 +13,13 @@ export type InputProps =
           type?: "text";
           min?: never;
           step?: never;
+          maxLength?: number;
       })
     | (BaseInputProps & {
           type: "number";
           min?: number;
           step?: number;
+          maxLength?: never;
       });
 
 type ExtendedInputProps = InputProps & {
@@ -34,6 +36,7 @@ const Input: React.FC<ExtendedInputProps> = ({
     type = "text",
     min,
     step,
+    maxLength,
     onKeyDown,
     autoFocus
 }) => {
@@ -49,6 +52,31 @@ const Input: React.FC<ExtendedInputProps> = ({
     // Only include min and step props for number inputs
     const numberProps = type === "number" ? { min, step } : {};
 
+    // Add maxLength for text inputs
+    const textMaxLength = type === "text" ? maxLength || 50 : undefined;
+    const textProps = type === "text" ? { maxLength: textMaxLength } : {};
+
+    if (type === "text" && textMaxLength) {
+        return (
+            <div className="relative">
+                <input
+                    type={type}
+                    value={value}
+                    onChange={(e) => onChange?.(e.target.value)}
+                    onKeyDown={onKeyDown}
+                    placeholder={placeholder}
+                    disabled={disabled}
+                    className={`${combinedClasses} pr-16`}
+                    autoFocus={autoFocus}
+                    {...textProps}
+                />
+                <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-xs text-slate-400">
+                    {value.length}/{textMaxLength}
+                </div>
+            </div>
+        );
+    }
+
     return (
         <input
             type={type}
@@ -60,6 +88,7 @@ const Input: React.FC<ExtendedInputProps> = ({
             className={combinedClasses}
             autoFocus={autoFocus}
             {...numberProps}
+            {...textProps}
         />
     );
 };

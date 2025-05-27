@@ -58,6 +58,7 @@ const AddNewProduct: React.FC<AddNewProductProps> = ({ onAdd }) => {
                             onChange={setProductName}
                             placeholder="Product name"
                             className="bg-white/70"
+                            maxLength={50}
                         />
                     </div>
                     <div className="w-28">
